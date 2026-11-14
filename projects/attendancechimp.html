@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[Project three], Ishanth Srinivas</title>
-<meta name="description" content="[One line about this project. Shows up in search results and link previews.]">
+<title>AttendanceChimp, Ishanth Srinivas</title>
+<meta name="description" content="A Django web app for taking class attendance with QR codes: instructors post a code each lecture, students upload a photo of it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -291,25 +291,25 @@ footer .copy{margin-left:auto}
 
   <!-- ============ HERO ============ -->
   <header class="hero hero-sub">
-    <h1>[Project three]</h1>
-    <p class="tagline">[One line on what this is and who it is for.]</p>
+    <h1>AttendanceChimp</h1>
+    <p class="tagline">A web app for taking class attendance with QR codes, built in Django over a quarter of coursework.</p>
 
     <dl class="facts">
       <div>
         <dt>Role</dt>
-        <dd>[What you did]</dd>
+        <dd>Backend developer</dd>
       </div>
       <div>
         <dt>Timeframe</dt>
-        <dd>[Month 20XX &ndash; Month 20XX]</dd>
+        <dd>September &ndash; November 2026</dd>
       </div>
       <div>
         <dt>Built with</dt>
-        <dd>[Tools and languages]</dd>
+        <dd>Python, Django, SQLite, HTML</dd>
       </div>
       <div>
-        <dt>Live</dt>
-        <dd><a href="#">[project-three.com]</a></dd>
+        <dt>Code</dt>
+        <dd><a href="https://github.com/yungsamosa/hw_4">View on GitHub</a></dd>
       </div>
     </dl>
   </header>
@@ -318,8 +318,8 @@ footer .copy{margin-left:auto}
   <section class="block">
     <h2>Overview</h2>
     <div>
-      <p class="lede">[What problem this solves and why it was worth solving. Two or three sentences.]</p>
-      <p class="lede">[Optional second paragraph. Where the idea came from, or what existed before.]</p>
+      <p class="lede">Paper sign-in sheets are slow and easy to game. AttendanceChimp replaces them: an instructor creates a lecture, the app gives it a random QR code, and students prove they were in the room by photographing the code and uploading the picture.</p>
+      <p class="lede">The project ran across a quarter of homework. The course supplied a bare Django skeleton, and each assignment added a layer: a couple of simple endpoints first, then accounts, then the data model, then the forms and API that tie it together.</p>
     </div>
   </section>
 
@@ -327,11 +327,13 @@ footer .copy{margin-left:auto}
   <section class="block">
     <h2>Build</h2>
     <div>
-      <p class="lede">[How you approached it, and the one decision that mattered most.]</p>
+      <p class="lede">Most of the work was the data model and the rules around who can do what. Instructors and students are both Django users with a one-to-one profile marking their role, and every endpoint checks that role before anything else.</p>
       <ul class="bullets">
-        <li>[A component you built, and what it does.]</li>
-        <li>[A tradeoff you made, and what you gave up for it.]</li>
-        <li>[Something that broke, and how you fixed it.]</li>
+        <li>A schema for courses (with meeting days and times), enrollments, lectures with unique random QR strings, and student photo uploads.</li>
+        <li>A sign-up endpoint that creates the user and the right profile in one transaction, rejects duplicate emails and usernames with a 409, and signs the new user in.</li>
+        <li>Endpoints to create courses and lectures (instructors only), upload a QR photo (students only), and dump every upload as JSON for the instructor.</li>
+        <li>Authorization runs before the method check, so someone without access always gets a 401 and never learns which HTTP methods an endpoint accepts.</li>
+        <li>Re-posting a course name updates the existing course instead of crashing on the unique constraint, so a repeated request returns a 200 rather than a 500.</li>
       </ul>
     </div>
   </section>
@@ -340,14 +342,12 @@ footer .copy{margin-left:auto}
   <section class="block">
     <h2>Outcome</h2>
     <div>
-      <p class="lede">[What came of it. Numbers if you have them, honest assessment if you do not.]</p>
+      <p class="lede">Sign-up, course and lecture creation, photo uploads, and the instructor upload log all work end to end. The piece still missing is the one that closes the loop: decoding the QR code in each photo and matching it to a lecture. The model already has fields for the decoded value and a validity flag.</p>
       <ul class="bullets">
-        <li>[Result or metric.]</li>
-        <li>[What you would do differently.]</li>
+        <li>Next: decode uploaded images, mark uploads valid only when the code matches a lecture of a course the student is enrolled in, and reject uploads outside the lecture window.</li>
       </ul>
       <div class="actions">
-        <a class="btn btn-solid" href="#">Visit the site</a>
-        <a class="btn" href="#">See the code</a>
+        <a class="btn btn-solid" href="https://github.com/yungsamosa/hw_4">See the code</a>
       </div>
     </div>
   </section>
@@ -356,7 +356,7 @@ footer .copy{margin-left:auto}
   <footer>
     <a href="../index.html">Home</a>
     <a href="#">LinkedIn</a>
-    <a href="#">GitHub</a>
+    <a href="https://github.com/yungsamosa">GitHub</a>
     <a href="../resume.pdf">Resume</a>
     <a href="mailto:ishanthian@uchicago.edu">Email</a>
     <span class="copy">&copy; 2026 Ishanth Srinivas</span>

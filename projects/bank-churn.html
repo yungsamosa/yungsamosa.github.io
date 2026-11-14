@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[Project two], Ishanth Srinivas</title>
-<meta name="description" content="[One line about this project. Shows up in search results and link previews.]">
+<title>Bank customer churn model, Ishanth Srinivas</title>
+<meta name="description" content="A logistic regression model predicting which of 165,000 bank customers will close their accounts. Kaggle Playground competition, 0.817 cross-validated AUC.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -291,25 +291,25 @@ footer .copy{margin-left:auto}
 
   <!-- ============ HERO ============ -->
   <header class="hero hero-sub">
-    <h1>[Project two]</h1>
-    <p class="tagline">[One line on what this is and who it is for.]</p>
+    <h1>Bank customer churn model</h1>
+    <p class="tagline">Predicting which bank customers will leave, using a model simple enough to explain to the people who would act on it.</p>
 
     <dl class="facts">
       <div>
         <dt>Role</dt>
-        <dd>[What you did]</dd>
+        <dd>Solo</dd>
       </div>
       <div>
         <dt>Timeframe</dt>
-        <dd>[Month 20XX &ndash; Month 20XX]</dd>
+        <dd>December 2024</dd>
       </div>
       <div>
         <dt>Built with</dt>
-        <dd>[Tools and languages]</dd>
+        <dd>Python, pandas, statsmodels, scikit-learn</dd>
       </div>
       <div>
-        <dt>Live</dt>
-        <dd><a href="#">[project-two.com]</a></dd>
+        <dt>Code</dt>
+        <dd><a href="https://github.com/yungsamosa/kaggle-bank-churn">View on GitHub</a></dd>
       </div>
     </dl>
   </header>
@@ -318,8 +318,8 @@ footer .copy{margin-left:auto}
   <section class="block">
     <h2>Overview</h2>
     <div>
-      <p class="lede">[What problem this solves and why it was worth solving. Two or three sentences.]</p>
-      <p class="lede">[Optional second paragraph. Where the idea came from, or what existed before.]</p>
+      <p class="lede">Banks lose money every time a customer closes an account, and keeping a customer is cheaper than finding a new one. The useful question is not only who will leave, but what about them predicts it, because that is what a retention team can act on.</p>
+      <p class="lede">The data came from a Kaggle Playground competition: 165,034 customers with credit score, age, tenure, balance, products held, activity status, country, and whether they left. The task was to score the probability of churn for another 110,023.</p>
     </div>
   </section>
 
@@ -327,11 +327,11 @@ footer .copy{margin-left:auto}
   <section class="block">
     <h2>Build</h2>
     <div>
-      <p class="lede">[How you approached it, and the one decision that mattered most.]</p>
+      <p class="lede">I used logistic regression rather than a black-box model, so every coefficient reads as a direct statement about customers. I started with a plain binomial GLM in statsmodels to see which variables carried signal, then moved to an L1-penalized model in scikit-learn.</p>
       <ul class="bullets">
-        <li>[A component you built, and what it does.]</li>
-        <li>[A tradeoff you made, and what you gave up for it.]</li>
-        <li>[Something that broke, and how you fixed it.]</li>
+        <li>Tested an age-by-balance interaction on the theory that older customers with large balances behave differently. It was not significant (p = 0.07), so I dropped it.</li>
+        <li>One-hot encoded country and gender, and left estimated salary, balance, and credit score out of the final model.</li>
+        <li>Checked the training fit against five-fold cross-validation to make sure the score was not an artifact of fitting the whole training set.</li>
       </ul>
     </div>
   </section>
@@ -340,14 +340,14 @@ footer .copy{margin-left:auto}
   <section class="block">
     <h2>Outcome</h2>
     <div>
-      <p class="lede">[What came of it. Numbers if you have them, honest assessment if you do not.]</p>
+      <p class="lede">The model reached an AUC of 0.818 on the training data and 0.817 under cross-validation, so it generalizes about as well as it fits. I submitted churn probabilities for all 110,023 test customers.</p>
       <ul class="bullets">
-        <li>[Result or metric.]</li>
-        <li>[What you would do differently.]</li>
+        <li>Inactive members and customers holding fewer products were far more likely to leave. Each additional year of age raised the odds of churn by roughly ten percent.</li>
+        <li>German customers churned noticeably more than French or Spanish ones, and women more than men.</li>
+        <li>Next time I would benchmark against a gradient-boosted model to measure how much accuracy the interpretable model gives up, and engineer features such as a zero-balance flag.</li>
       </ul>
       <div class="actions">
-        <a class="btn btn-solid" href="#">Visit the site</a>
-        <a class="btn" href="#">See the code</a>
+        <a class="btn btn-solid" href="https://github.com/yungsamosa/kaggle-bank-churn">See the code</a>
       </div>
     </div>
   </section>
@@ -356,7 +356,7 @@ footer .copy{margin-left:auto}
   <footer>
     <a href="../index.html">Home</a>
     <a href="#">LinkedIn</a>
-    <a href="#">GitHub</a>
+    <a href="https://github.com/yungsamosa">GitHub</a>
     <a href="../resume.pdf">Resume</a>
     <a href="mailto:ishanthian@uchicago.edu">Email</a>
     <span class="copy">&copy; 2026 Ishanth Srinivas</span>
